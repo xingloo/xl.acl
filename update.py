@@ -104,6 +104,7 @@ def main():
     subprocess.run(["git", "push"], check=True)
 
     note = now.strftime("%Y.%m.%d") + "\n\n```diff\n" + diff + "\n```"
+    print("note: ", note)
     subprocess.run(
         [
             "gh",
