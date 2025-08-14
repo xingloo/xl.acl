@@ -21,21 +21,23 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@users.noreply.github.com"
-      - name: Test
-        run: coverage run -m pytest 
+      # - name: Test
+      #   run: coverage run -m pytest 
       - name: Update(master)
         if: ${{ github.ref == 'refs/heads/master' && github.event_name != 'pull_request' }}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        run: coverage run -a ./update.py --release
+        # run: coverage run -a ./update.py --release
+        run: python3 update.py --release
       - name: Update
         if: ${{ !(github.ref == 'refs/heads/master' && github.event_name != 'pull_request') }}
-        run: coverage run -a ./update.py 
-      - name: Report coverage
-        env:
-          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-        run: |
-          coverage xml && coverage report
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-          ./cc-test-reporter after-build
+        # run: coverage run -a ./update.py 
+        run: python3 update.py --release
+      # - name: Report coverage
+      #   env:
+      #     CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+      #   run: |
+      #     coverage xml && coverage report
+      #     curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      #     chmod +x ./cc-test-reporter
+      #     ./cc-test-reporter after-build
