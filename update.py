@@ -117,6 +117,7 @@ def main():
         ],
         check=True,
         input=note,
+        text=True,
     )
 
 
