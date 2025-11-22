@@ -1,6 +1,6 @@
 #
 # Home: https://github.com/NateScarlet/gfwlist.acl
-# Date: 2025-11-21T11:05:00.801257+08:00
+# Date: 2025-11-22T10:58:33.160169+08:00
 # URL: https://raw.githubusercontent.com/NateScarlet/gfwlist.acl/master/gfwlist.white.acl
 #
 
@@ -3963,7 +3963,6 @@ lvhai\.org
 (^|\.)madou\.club
 (^|\.)mahjongsoul\.com
 (^|\.)mangabz\.com
-^.+\.m-team\.cc
 \.macrovpn\.com
 (^|\.)mad-ar\.ch
 (^|\.)madrau\.com
