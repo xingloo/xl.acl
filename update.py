@@ -8,13 +8,20 @@ import os
 import subprocess
 from datetime import datetime
 
-from geosite2acl import build_acl_rules
+from geosite2acl import (
+    MIN_COMPILED_BLACKLIST,
+    MIN_COMPILED_WHITELIST,
+    build_acl_rules,
+    validate_acl_rules,
+)
 from gfwlist2acl import ACL_TEMPLATE, ChinaTimezone
 
 __dirname__ = os.path.abspath(os.path.dirname(__file__))
 
-MIN_BLACKLIST_RULES = 1000
-MIN_WHITELIST_RULES = 100
+MIN_BLACKLIST_RULES = MIN_COMPILED_BLACKLIST
+MIN_WHITELIST_RULES = MIN_COMPILED_WHITELIST
+MAX_DROP_RATIO = 0.20
+MAX_GROWTH_RATIO = 0.50
 MAX_RELEASE_DIFF_CHARS = 60000
 
 
@@ -44,13 +51,57 @@ def format_release_note(tag: str, diff: str, max_chars: int = MAX_RELEASE_DIFF_C
     )
 
 
+def validate_against_baseline(
+    blacklist: list[str],
+    whitelist: list[str],
+    baseline_path: str | None = None,
+    force: bool = False,
+) -> None:
+    """与当前仓库基线对比规则数量波动幅度，防止上游异常暴跌或污染暴涨被自动提交。"""
+    if force:
+        return
+
+    path = baseline_path or _file_path("gfwlist.acl.json")
+    if not os.path.exists(path):
+        return
+
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            baseline = json.load(f)
+    except (OSError, json.JSONDecodeError) as err:
+        raise RuntimeError(f"读取基线文件失败 ({path}): {err}") from err
+
+    old_bl = len(baseline.get("blacklist", ()))
+    old_wl = len(baseline.get("whitelist", ()))
+
+    for name, old_cnt, new_cnt in (
+        ("blacklist", old_bl, len(blacklist)),
+        ("whitelist", old_wl, len(whitelist)),
+    ):
+        if old_cnt <= 0:
+            continue
+        drop_ratio = (old_cnt - new_cnt) / old_cnt
+        growth_ratio = (new_cnt - old_cnt) / old_cnt
+        if drop_ratio > MAX_DROP_RATIO:
+            raise RuntimeError(
+                f"{name} 较基线大幅缩水 {drop_ratio:.1%} ({old_cnt} -> {new_cnt})，已中止提交（如需强行更新请加 --force）"
+            )
+        if growth_ratio > MAX_GROWTH_RATIO:
+            raise RuntimeError(
+                f"{name} 较基线异常暴涨 {growth_ratio:.1%} ({old_cnt} -> {new_cnt})，已中止提交（如需强行更新请加 --force）"
+            )
+
+
 def write_acl_outputs(
     blacklist: list[str],
     whitelist: list[str],
     now: datetime,
+    validate_output: bool = True,
 ) -> list[str]:
     """按既有格式契约输出 gfwlist.acl、gfwlist.white.acl 与 gfwlist.acl.json。"""
-    if len(blacklist) < MIN_BLACKLIST_RULES or len(whitelist) < MIN_WHITELIST_RULES:
+    if validate_output:
+        validate_acl_rules(blacklist, whitelist)
+    elif len(blacklist) < MIN_BLACKLIST_RULES or len(whitelist) < MIN_WHITELIST_RULES:
         raise RuntimeError(
             f"生成规则数量异常，中止写入: blacklist={len(blacklist)}, whitelist={len(whitelist)}"
         )
@@ -110,12 +161,18 @@ def main():
         action="store_true",
         help="include full Loyalsoldier direct-list.txt in whitelist",
     )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="bypass baseline delta guard when large upstream changes are expected",
+    )
 
     args = parser.parse_args()
     is_release = args.release
 
     now = datetime.now(ChinaTimezone())
     blacklist, whitelist = build_acl_rules(full_direct=args.full_direct)
+    validate_against_baseline(blacklist, whitelist, force=args.force)
     filenames = write_acl_outputs(blacklist, whitelist, now)
     logging.info("已更新 ACL 文件: blacklist=%d, whitelist=%d", len(blacklist), len(whitelist))
 

@@ -1,26 +1,38 @@
 """geosite2acl 与 update 模块单元测试。"""
 
+import hashlib
 import json
+import os
 import re
+import tempfile
 import unittest
 from datetime import datetime
 from unittest.mock import patch
 
 from geosite2acl import (
+    CANARY_DIRECT_DOMAINS,
+    CANARY_PROXY_DOMAINS,
+    CANARY_WHITELIST_DOMAINS,
+    MIN_COMPILED_BLACKLIST,
+    MIN_COMPILED_WHITELIST,
+    MIN_SOURCE_RULES,
     RuleSet,
     compile_acl_rules,
     drop_single_label_tlds,
     extract_dlc_rulesets,
     extract_infra_ruleset,
+    fetch_verified_dlc_plain,
     filter_proxy_for_tproxy,
     normalize_posix_ere,
     parse_dlc_plain_yml,
     parse_v2ray_txt,
     prune_ruleset,
     resolve_conflicts,
+    validate_acl_rules,
+    validate_source_counts,
 )
 from gfwlist2acl import ACL_TEMPLATE, ChinaTimezone
-from update import format_release_note
+from update import format_release_note, validate_against_baseline
 
 
 class TestGeosite2Acl(unittest.TestCase):
@@ -254,7 +266,11 @@ class TestGeosite2Acl(unittest.TestCase):
         with patch("geosite2acl.fetch_text", side_effect=fake_fetch):
             from geosite2acl import build_acl_rules
 
-            bl, wl = build_acl_rules()
+            bl, wl = build_acl_rules(
+                verify_integrity=False,
+                validate_sources=False,
+                validate_output=False,
+            )
 
         self.assertEqual(
             bl,
@@ -278,6 +294,141 @@ class TestGeosite2Acl(unittest.TestCase):
         # 验证 json 序列化契约
         payload = json.loads(json.dumps({"blacklist": bl, "whitelist": wl}))
         self.assertEqual(set(payload.keys()), {"blacklist", "whitelist"})
+
+    def test_fetch_verified_dlc_plain(self):
+        yml_content = 'lists:\n  - name: "cn"\n    rules:\n      - "domain:baidu.com"\n'
+        good_sha = hashlib.sha256(yml_content.encode("utf-8")).hexdigest()
+
+        def fake_ok(urls, **_kwargs):
+            url = next(iter(urls))
+            if url.endswith(".sha256sum"):
+                return f"{good_sha}  dlc.dat_plain.yml\n"
+            return yml_content
+
+        with patch("geosite2acl.fetch_text", side_effect=fake_ok):
+            self.assertEqual(fetch_verified_dlc_plain(), yml_content)
+
+        def fake_bad(urls, **_kwargs):
+            url = next(iter(urls))
+            if url.endswith(".sha256sum"):
+                return f"{'0' * 64}  dlc.dat_plain.yml\n"
+            return yml_content
+
+        with patch("geosite2acl.fetch_text", side_effect=fake_bad), patch(
+            "geosite2acl.time.sleep"
+        ):
+            with self.assertRaises(RuntimeError):
+                fetch_verified_dlc_plain(retries=2)
+
+    def test_validate_source_counts_rejects_truncated(self):
+        healthy_sources = {
+            name: RuleSet(roots={f"d{i}.example.com" for i in range(cnt)})
+            for name, cnt in MIN_SOURCE_RULES.items()
+        }
+        healthy_dlc = {
+            "geolocation-!cn": [("domain", "openai.com", set())],
+            "cn": [("domain", "baidu.com", set())],
+            "geolocation-cn": [("domain", "qq.com", set())],
+            "apple": [("domain", "apple.com", set())],
+            "microsoft": [("domain", "microsoft.com", set())],
+        }
+        validate_source_counts(healthy_sources, healthy_dlc)
+
+        broken_sources = dict(healthy_sources)
+        broken_sources["loyal_direct"] = RuleSet(roots={"baidu.com"})
+        with self.assertRaises(RuntimeError):
+            validate_source_counts(broken_sources, healthy_dlc)
+
+        broken_dlc = dict(healthy_dlc)
+        broken_dlc["cn"] = []
+        with self.assertRaises(RuntimeError):
+            validate_source_counts(healthy_sources, broken_dlc)
+
+    def _build_valid_canary_lists(self):
+        bl = [rf"(^|\.){d.replace('.', r'\.')}" for d in CANARY_PROXY_DOMAINS]
+        bl.extend(
+            rf"(^|\.)extra{i}\.example\.com"
+            for i in range(MIN_COMPILED_BLACKLIST - len(bl) + 10)
+        )
+        wl = [
+            rf"(^|\.){d.replace('.', r'\.')}"
+            if d != "dl.google.com"
+            else r"^dl\.google\.com$"
+            for d in CANARY_WHITELIST_DOMAINS
+        ]
+        wl.extend(
+            rf"(^|\.)cn{i}\.example\.cn"
+            for i in range(MIN_COMPILED_WHITELIST - len(wl) + 10)
+        )
+        return bl, wl
+
+    def test_validate_acl_rules_canary_and_contract(self):
+        bl, wl = self._build_valid_canary_lists()
+        validate_acl_rules(bl, wl)
+
+        # 1. 多级根域误加末尾 $ 必须报错
+        bad_dollar = list(bl)
+        bad_dollar[-1] = r"(^|\.)extra\.example\.com$"
+        with self.assertRaises(RuntimeError):
+            validate_acl_rules(bad_dollar, wl)
+
+        # 2. 单标签 TLD 泄漏必须报错
+        bad_tld = list(bl) + [r"(^|\.)google"]
+        with self.assertRaises(RuntimeError):
+            validate_acl_rules(bad_tld, wl)
+
+        # 3. 直连域名混入 blacklist 必须触发金丝雀拦截
+        leaked_bl = list(bl) + [rf"(^|\.){CANARY_DIRECT_DOMAINS[3].replace('.', r'\.')}"]
+        with self.assertRaises(RuntimeError):
+            validate_acl_rules(leaked_bl, wl)
+
+        # 4. 关键代理域名缺失必须拦截
+        missing_proxy_bl = [r for r in bl if "openai" not in r]
+        with self.assertRaises(RuntimeError):
+            validate_acl_rules(missing_proxy_bl, wl)
+
+    def test_validate_against_baseline_rejects_anomaly(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            baseline_file = os.path.join(tmpdir, "gfwlist.acl.json")
+            with open(baseline_file, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "blacklist": [f"r{i}" for i in range(1000)],
+                        "whitelist": [f"w{i}" for i in range(500)],
+                    },
+                    f,
+                )
+
+            # 正常小幅波动放行
+            validate_against_baseline(
+                [f"r{i}" for i in range(950)],
+                [f"w{i}" for i in range(520)],
+                baseline_path=baseline_file,
+            )
+
+            # 缩水 >20% 拦截
+            with self.assertRaises(RuntimeError):
+                validate_against_baseline(
+                    [f"r{i}" for i in range(700)],
+                    [f"w{i}" for i in range(500)],
+                    baseline_path=baseline_file,
+                )
+
+            # 暴涨 >50% 拦截
+            with self.assertRaises(RuntimeError):
+                validate_against_baseline(
+                    [f"r{i}" for i in range(1000)],
+                    [f"w{i}" for i in range(800)],
+                    baseline_path=baseline_file,
+                )
+
+            # --force 放行
+            validate_against_baseline(
+                [f"r{i}" for i in range(700)],
+                [f"w{i}" for i in range(800)],
+                baseline_path=baseline_file,
+                force=True,
+            )
 
 
 if __name__ == "__main__":

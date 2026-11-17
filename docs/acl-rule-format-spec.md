@@ -118,3 +118,16 @@
 - [ ] **旧 `gfwlist` 基本盘不丢失**：除纯 IP `85.17.73.31` 外，旧版所有多级域名与通配规则均能被新版 `blacklist` 匹配。
 - [ ] **国内服务不被误杀**：`alicloud.com`、`alibabacloud.com`、`ctyun.online`、`cnpmjs.org`、`kimi.ai`、`apple.com`、`icloud.com`、`microsoft.com`、`cn.bing.com` 等均不命中 `blacklist`；`openai.com`、`claude.ai`、`google.com`、`github.com`、`copilot.microsoft.com`、`oklink.com` 等正常命中 `blacklist`。
 - [ ] **格式与编码校验**：三份产物均为 UTF-8 + LF（无 `\r\n`），`blacklist` 与 `whitelist` 交集为 0，所有条目长度 `<= 254` 字节且全部可被 `re.compile()` 编译。
+
+---
+
+## 6. 上游异常自动阻断校验机制（CI 防污染门禁）
+
+为防止任一上游数据源被截断、清空、损坏或结构突变后自动提交到仓库并影响下游 `main.js` / `tproxy`，[geosite2acl.py](file:///g:/xingloo/codes/github/xl.acl/geosite2acl.py) 与 [update.py](file:///g:/xingloo/codes/github/xl.acl/update.py) 在写入任何文件和执行 `git commit` 之前强制执行 4 层阻断校验（任一失败即以非零状态码中止，不污染仓库）：
+
+1. **下载完整性校验（`fetch_verified_dlc_plain`）**：下载 `dlc.dat_plain.yml` 后同步比对 `dlc.dat_plain.yml.sha256sum`，不匹配则自动重试，仍不匹配直接中止。
+2. **分源最小规模与分类存在性校验（`validate_source_counts`）**：逐一核验 `MIN_SOURCE_RULES`（如 `loyal_proxy >= 15000`、`loyal_gfw >= 2500`、`loyal_direct >= 50000`、`dlc_proxy >= 12000`、`dlc_cn >= 4000`、`infra_set >= 1000`）以及关键分类 `geolocation-!cn`、`cn`、`geolocation-cn`、`apple`、`microsoft` 非空。
+3. **产物格式契约与金丝雀门禁（`validate_acl_rules`）**：
+   - 校验规模下限（`blacklist >= 15000`、`whitelist >= 4000`）、交集为 0、单条 `<= 254` 字节、全部可 `re.compile()`、无多余 `$` 与单标签 TLD 泄漏。
+   - **金丝雀实测**：必走代理域（`CANARY_PROXY_DOMAINS`，如 `google.com`、`openai.com`、`claude.ai`、`oklink.com`、`copilot.microsoft.com`）必须命中 `blacklist`；必直连国内/大厂域（`CANARY_DIRECT_DOMAINS`，如 `alicloud.com`、`kimi.ai`、`apple.com`、`microsoft.com`、`cn.bing.com`）不得命中 `blacklist`；核心直连域（`CANARY_WHITELIST_DOMAINS`）必须命中 `whitelist`。
+4. **基线环比防抖（`validate_against_baseline`）**：读取仓库现有 [gfwlist.acl.json](file:///g:/xingloo/codes/github/xl.acl/gfwlist.acl.json)，若新版数量较基线缩水 `> 20%` 或暴涨 `> 50%`，直接拦截提交（仅人工确认后传 `--force` 可放行）。
