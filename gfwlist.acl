@@ -1,6 +1,6 @@
 #
 # Home: https://github.com/NateScarlet/gfwlist.acl
-# Date: 2026-11-17T11:05:50.081730+08:00
+# Date: 2026-11-18T17:30:00.027394+08:00
 # URL: https://raw.githubusercontent.com/NateScarlet/gfwlist.acl/master/gfwlist.acl
 #
 
@@ -6692,6 +6692,7 @@
 (^|\.)elephanttubenew\.com
 (^|\.)elevenlabs\.com
 (^|\.)elevenlabs\.io
+(^|\.)elevenlabsusercontent\.com
 (^|\.)elgaronline\.com
 (^|\.)elgoog\.im
 (^|\.)elifesciences\.org
