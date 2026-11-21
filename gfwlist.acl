@@ -1,6 +1,6 @@
 #
 # Home: https://github.com/NateScarlet/gfwlist.acl
-# Date: 2026-11-19T17:40:21.363874+08:00
+# Date: 2026-11-21T16:58:58.181684+08:00
 # URL: https://raw.githubusercontent.com/NateScarlet/gfwlist.acl/master/gfwlist.acl
 #
 
@@ -3647,6 +3647,7 @@
 (^|\.)bravoteens\.com
 (^|\.)bravotube\.net
 (^|\.)bravotube\.tv
+(^|\.)bravotv\.com
 (^|\.)brawlstars\.com
 (^|\.)brawlstarsgame\.com
 (^|\.)brazz\.org
@@ -4750,6 +4751,7 @@
 (^|\.)cmegroup\.com
 (^|\.)cmi\.org\.tw
 (^|\.)cmmedia\.com\.tw
+(^|\.)cmoney\.tw
 (^|\.)cmpaas\.com
 (^|\.)cmrbank\.ru
 (^|\.)cms-twdigitalassets\.com
@@ -4763,6 +4765,7 @@
 (^|\.)cn\.shafaqna\.com
 (^|\.)cna\.com\.tw
 (^|\.)cnbc\.com
+(^|\.)cnbccouncils\.com
 (^|\.)cnbcfm\.com
 (^|\.)cnbeta\.com
 (^|\.)cnbeta\.com\.tw
@@ -6369,6 +6372,7 @@
 (^|\.)e-goods\.ru
 (^|\.)e-hentai\.org
 (^|\.)e-hentaidb\.com
+(^|\.)e-info\.org\.tw
 (^|\.)e-szigno\.hu
 (^|\.)e-tugra\.com
 (^|\.)e-zone\.com\.hk
@@ -7924,6 +7928,7 @@
 (^|\.)fnmt\.es
 (^|\.)foampositeshoes\.com
 (^|\.)fochk\.org
+(^|\.)focusfeatures\.com
 (^|\.)focustaiwan\.tw
 (^|\.)fofg\.org
 (^|\.)foftolia\.com
@@ -8505,7 +8510,6 @@
 (^|\.)gamcore\.com
 (^|\.)game-platform\.net
 (^|\.)game-repack\.site
-(^|\.)game735\.com
 (^|\.)gameapps\.hk
 (^|\.)gamebanana\.com
 (^|\.)gamebase\.com\.tw
@@ -8531,6 +8535,7 @@
 (^|\.)gamewtb\.com
 (^|\.)gamez\.com\.tw
 (^|\.)gaming-notebooks\.com
+(^|\.)gamma\.app
 (^|\.)gandhara\.ru
 (^|\.)gandi\.net
 (^|\.)ganjing\.com
@@ -9448,6 +9453,7 @@
 (^|\.)greatgame\.asia
 (^|\.)greatretroporn\.com
 (^|\.)green-box-tv\.com
+(^|\.)greenbean\.media
 (^|\.)greenbuildingstudio\.com
 (^|\.)greenend\.org\.uk
 (^|\.)greenlakeaas\.com
@@ -9660,6 +9666,7 @@
 (^|\.)hayabusa\.media
 (^|\.)hayday\.com
 (^|\.)haydaygame\.com
+(^|\.)hayu\.com
 (^|\.)hayya\.ae
 (^|\.)hbabit\.com
 (^|\.)hbfile\.net
@@ -10063,9 +10070,11 @@
 (^|\.)hkchronicles\.com
 (^|\.)hkcircleapp\.com
 (^|\.)hkcitizenmedia\.com
+(^|\.)hkcitycreation\.com
 (^|\.)hkcnews\.com
 (^|\.)hkcoc\.com
 (^|\.)hkcoc\.weather\.com\.hk
+(^|\.)hkcourtnews\.com
 (^|\.)hkcsl\.com
 (^|\.)hkdc\.us
 (^|\.)hkedcity\.net
@@ -10076,6 +10085,7 @@
 (^|\.)hkf202311\.site
 (^|\.)hkf202312\.shop
 (^|\.)hkfaa\.com
+(^|\.)hkfeature\.com
 (^|\.)hkgalden\.com
 (^|\.)hkgolden\.com
 (^|\.)hkgolden\.media
@@ -10922,6 +10932,7 @@
 (^|\.)ilhamtohtiinstitute\.org
 (^|\.)illawarramercury\.com\.au
 (^|\.)illgames\.jp
+(^|\.)illumination\.com
 (^|\.)illusion111\.com
 (^|\.)illusionas\.com
 (^|\.)illusionchn\.com
@@ -12586,6 +12597,7 @@
 (^|\.)lifeatspotify\.com
 (^|\.)lifemiles\.com
 (^|\.)lifeselector\.com
+(^|\.)lifesitenews\.com
 (^|\.)lifestyle-tec\.ru
 (^|\.)lifewire\.com
 (^|\.)lightbridge\.com
@@ -13109,6 +13121,7 @@
 (^|\.)massagerepublic\.com
 (^|\.)masseffect\.com
 (^|\.)masseffectarchives\.com
+(^|\.)master-insight\.com
 (^|\.)mastercad\.com
 (^|\.)mastercard-email\.com
 (^|\.)mastercard\.ae
@@ -14029,6 +14042,7 @@
 (^|\.)moneta\.ru
 (^|\.)money-link\.com\.tw
 (^|\.)moneydj\.com
+(^|\.)moneynet\.com\.tw
 (^|\.)moneywithfacebook\.com
 (^|\.)mongodb\.com
 (^|\.)mongodb\.org
@@ -14276,6 +14290,7 @@
 (^|\.)mxshm\.site
 (^|\.)my-enema\.com
 (^|\.)my-formosa\.com
+(^|\.)my-formosa\.com\.tw
 (^|\.)my-magazine\.me
 (^|\.)my-manager-account\.com
 (^|\.)my-private-network\.co\.uk
@@ -14563,8 +14578,11 @@
 (^|\.)nbcolympics\.com
 (^|\.)nbcsports\.com
 (^|\.)nbcudigitaladops\.com
+(^|\.)nbcumv\.com
 (^|\.)nbcuni\.com
+(^|\.)nbcunicareers\.com
 (^|\.)nbcuniversal\.com
+(^|\.)nbcuniversalprivacy\.com
 (^|\.)nbdh15\.buzz
 (^|\.)nbtvpn\.com
 (^|\.)nbys\.tv
@@ -17189,6 +17207,7 @@
 (^|\.)pugpig\.com
 (^|\.)pullfolio\.co
 (^|\.)pulsebrowser\.app
+(^|\.)pulsehknews\.com
 (^|\.)punishbang\.com
 (^|\.)punishworld\.com
 (^|\.)pure18\.com
@@ -18614,6 +18633,7 @@
 (^|\.)shahvani\.site
 (^|\.)shakethesnake\.com
 (^|\.)shameless\.com
+(^|\.)shanghainationalparty\.com
 (^|\.)shaparak\.ir
 (^|\.)shapelcounset\.xyz
 (^|\.)share-videos\.se
@@ -19210,6 +19230,7 @@
 (^|\.)soubory\.com
 (^|\.)souka\.xyz
 (^|\.)soulcaliburhentai\.net
+(^|\.)soulogic\.com
 (^|\.)soundcloud\.cloud
 (^|\.)soundcloud\.com
 (^|\.)soundofhope\.eu
@@ -19896,6 +19917,7 @@
 (^|\.)taiwanncf\.org\.tw
 (^|\.)taiwannews\.com\.tw
 (^|\.)taiwansex\.tw
+(^|\.)taiwantoday\.tw
 (^|\.)taiwantt\.org\.tw
 (^|\.)tajimabank\.co\.jp
 (^|\.)take2games\.com
@@ -20058,6 +20080,7 @@
 (^|\.)telegramdownload\.com
 (^|\.)telekom\.com
 (^|\.)telekom\.de
+(^|\.)telemundo\.com
 (^|\.)telerik\.com
 (^|\.)telesco\.pe
 (^|\.)telesec\.de
@@ -20168,6 +20191,7 @@
 (^|\.)thecleversense\.com
 (^|\.)theclub\.com\.hk
 (^|\.)theclubprive\.com
+(^|\.)thecollectivehk\.com
 (^|\.)thecompaqstore\.com
 (^|\.)theconversation\.com
 (^|\.)thecuckold\.com
@@ -20230,6 +20254,7 @@
 (^|\.)thenewslens\.com
 (^|\.)thenextweb\.com
 (^|\.)thenipslip\.com
+(^|\.)theonlinecitizen\.com
 (^|\.)theopportunityproject\.org
 (^|\.)thepaypalshop\.com
 (^|\.)thepervs\.com
@@ -20266,6 +20291,7 @@
 (^|\.)thesimssocial\.com
 (^|\.)thestandard\.com\.hk
 (^|\.)thestandnews\.com
+(^|\.)thestar\.com
 (^|\.)thestationbymaker\.com
 (^|\.)thesun\.co\.uk
 (^|\.)thesun\.ie
@@ -20288,6 +20314,7 @@
 (^|\.)thewgo\.org
 (^|\.)thewirechina\.com
 (^|\.)thewitcher\.com
+(^|\.)thewitnesshk\.com
 (^|\.)thewonderful101\.com
 (^|\.)theync\.com
 (^|\.)theyxxx\.com
@@ -21115,6 +21142,7 @@
 (^|\.)udnfunlife\.com
 (^|\.)udomain\.hk
 (^|\.)udtrucksmeena\.com
+(^|\.)udxfpp\.com
 (^|\.)ueberamazon\.de
 (^|\.)uflash\.tv
 (^|\.)uforadio\.com\.tw
@@ -21190,11 +21218,18 @@
 (^|\.)united\.ru
 (^|\.)unity\.com
 (^|\.)unity3d\.com
+(^|\.)universalbeijingresort\.com
+(^|\.)universalhorrorunleashed\.com
+(^|\.)universalkidsresort\.com
 (^|\.)universalorlando\.com
+(^|\.)universalpictures\.co\.uk
 (^|\.)universalpictures\.com
+(^|\.)universalpicturesathome\.com
 (^|\.)universalpicturesinternational\.com
+(^|\.)universalproductsexperiences\.com
 (^|\.)universalscalablefirmware\.org
 (^|\.)universalstudioshollywood\.com
+(^|\.)universalukproject\.co\.uk
 (^|\.)universitypressscholarship\.com
 (^|\.)unknownspace\.org
 (^|\.)unkoscene\.com
@@ -21220,6 +21255,7 @@
 (^|\.)upfrontcfd\.com
 (^|\.)upfrontfea\.com
 (^|\.)upghsbc\.com
+(^|\.)uphe\.com
 (^|\.)upholdjustice\.org
 (^|\.)upjav\.cc
 (^|\.)uplay-istrip\.com
@@ -21268,6 +21304,7 @@
 (^|\.)usersdrive\.com
 (^|\.)usertrust\.com
 (^|\.)usfk\.mil
+(^|\.)usj\.co\.jp
 (^|\.)usma\.edu
 (^|\.)usno\.navy\.mil
 (^|\.)usocial\.pro
@@ -22777,6 +22814,7 @@
 (^|\.)wolframalpha\.com
 (^|\.)wolfsex-me\.sbs
 (^|\.)wolterskluwer\.com
+(^|\.)womany\.net
 (^|\.)wombo\.ai
 (^|\.)womensnikeshox\.com
 (^|\.)womenwill\.com
@@ -27538,6 +27576,7 @@
 (^|\.)eceshi\.com
 (^|\.)ecgapp\.com\.cn
 (^|\.)echargenet\.com
+(^|\.)echooai\.com
 (^|\.)ecitic\.com
 (^|\.)ecjobhome\.com
 (^|\.)eckwai\.com
@@ -27679,8 +27718,10 @@
 (^|\.)favonis\.cloud
 (^|\.)favonis\.com
 (^|\.)favonis\.space
+(^|\.)faw-vw\.com
 (^|\.)faw\.cn
 (^|\.)faxingbao\.com
+(^|\.)fazhipro\.com
 (^|\.)fbank\.com
 (^|\.)fbstatic\.cn
 (^|\.)fcapp\.run
@@ -30878,6 +30919,7 @@
 (^|\.)rwkv\.com
 (^|\.)rzrc114\.com
 (^|\.)s0n\.cn
+(^|\.)saasfz\.com
 (^|\.)saasops\.tech
 (^|\.)saayaa\.com
 (^|\.)saduck\.top
