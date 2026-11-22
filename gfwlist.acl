@@ -1,6 +1,6 @@
 #
 # Home: https://github.com/NateScarlet/gfwlist.acl
-# Date: 2026-11-21T16:58:58.181684+08:00
+# Date: 2026-11-22T17:05:36.895922+08:00
 # URL: https://raw.githubusercontent.com/NateScarlet/gfwlist.acl/master/gfwlist.acl
 #
 
@@ -7500,6 +7500,7 @@
 (^|\.)fantom\.foundation
 (^|\.)fantom\.network
 (^|\.)fantv\.hk
+(^|\.)fanza\.jp
 (^|\.)fap-xxx\.com
 (^|\.)fap18\.net
 (^|\.)fap666\.com
@@ -14205,7 +14206,6 @@
 (^|\.)msi\.com
 (^|\.)msk\.ilnk\.info
 (^|\.)msk\.kitazawa\.me
-(^|\.)msnbc\.com
 (^|\.)msoopent\.com
 (^|\.)mspbank\.ru
 (^|\.)mstdn\.social
@@ -17708,6 +17708,7 @@
 (^|\.)renyurenquan\.org
 (^|\.)renzhe\.cloud
 (^|\.)repe21\.com
+(^|\.)replit\.com
 (^|\.)report-megafon\.ru
 (^|\.)repotama\.com
 (^|\.)repsils\.no
@@ -20659,6 +20660,7 @@
 (^|\.)torrentproject\.se
 (^|\.)torrenty\.org
 (^|\.)torrindex\.net
+(^|\.)tortoisegit\.org
 (^|\.)tortoisesvn\.net
 (^|\.)torvpn\.com
 (^|\.)tosh\.comedycentral\.com
@@ -28644,6 +28646,7 @@
 (^|\.)icbcstandardbank\.com
 (^|\.)icbcstandardresources\.com
 (^|\.)icbcstandardsecurities\.com
+(^|\.)icc\.link
 (^|\.)iccvlog\.com
 (^|\.)iceo\.com\.cn
 (^|\.)ichangtou\.com
