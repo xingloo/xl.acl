@@ -1,6 +1,6 @@
 #
 # Home: https://github.com/NateScarlet/gfwlist.acl
-# Date: 2026-11-22T17:05:36.895922+08:00
+# Date: 2026-11-23T18:00:03.814857+08:00
 # URL: https://raw.githubusercontent.com/NateScarlet/gfwlist.acl/master/gfwlist.white.acl
 #
 
@@ -26696,6 +26696,7 @@
 (^|\.)chugou360\.com
 (^|\.)chuimg\.com
 (^|\.)chujingapp\.com
+(^|\.)chunithm\.wahlap\.com
 (^|\.)chunyu\.mobi
 (^|\.)chunyuyisheng\.com
 (^|\.)chushi\.cool
@@ -29789,6 +29790,7 @@
 (^|\.)maiche\.com
 (^|\.)mail4399\.com
 (^|\.)maimai\.cn
+(^|\.)maimai\.wahlap\.com
 (^|\.)maimemo\.com
 (^|\.)maimemostatus\.com
 (^|\.)maindown4399\.com
@@ -31608,6 +31610,7 @@
 (^|\.)tfzq\.com
 (^|\.)tgbus\.com
 (^|\.)tggfl\.com
+(^|\.)tgk-wcaime\.wahlap\.com
 (^|\.)tgovcloud\.com
 (^|\.)tgpro\.top
 (^|\.)tgprocs\.net
@@ -32245,6 +32248,7 @@
 (^|\.)vxo7tu\.com
 (^|\.)vzuu\.com
 (^|\.)wahaha\.com\.cn
+(^|\.)wahlap\.net
 (^|\.)waifushangcheng\.com
 (^|\.)wali\.com
 (^|\.)wallstcn\.com
