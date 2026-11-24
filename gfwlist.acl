@@ -1,6 +1,6 @@
 #
 # Home: https://github.com/NateScarlet/gfwlist.acl
-# Date: 2026-11-23T18:00:03.814857+08:00
+# Date: 2026-11-24T19:50:56.872777+08:00
 # URL: https://raw.githubusercontent.com/NateScarlet/gfwlist.acl/master/gfwlist.acl
 #
 
@@ -3945,6 +3945,7 @@
 (^|\.)cabletvdirectv\.com
 (^|\.)cachefly\.com
 (^|\.)cachefly\.net
+(^|\.)cachix\.org
 (^|\.)cacnw\.com
 (^|\.)cactusvpn\.com
 (^|\.)cad-mep\.com
@@ -8685,6 +8686,7 @@
 (^|\.)gemfire\.net
 (^|\.)gemfury\.com
 (^|\.)gemini\.com
+(^|\.)gemma\.ai
 (^|\.)gen\.lib\.rus\.ec
 (^|\.)genbank\.ru
 (^|\.)gencraft\.com
@@ -21904,6 +21906,7 @@
 (^|\.)viu\.tv
 (^|\.)vivaldi\.com
 (^|\.)vivaxnxx\.com
+(^|\.)vivox\.com
 (^|\.)vivthomas\.com
 (^|\.)vixen\.com
 (^|\.)vixengroup\.com
@@ -24426,6 +24429,7 @@
 ^cloudsync-prod\.s3\.amazonaws\.com$
 ^copilot-workspace\.githubnext\.com$
 ^copilotprodattachments\.blob\.core\.windows\.net$
+^courses\.myecnu\.org$
 ^crl\.microsoft\.com$
 ^crl\.versign\.net$
 ^csis-prod\.s3\.amazonaws\.com$
